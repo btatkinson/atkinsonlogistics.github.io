@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atkinson Logistics LLC — Advanced Defense Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0a0c10;
+    --bg-card: #12151c;
+    --bg-card-hover: #181c26;
+    --border: #1e2330;
+    --border-accent: #2a3040;
+    --text-primary: #e8eaf0;
+    --text-secondary: #8890a4;
+    --text-muted: #555d74;
+    --accent: #c4974a;
+    --accent-dim: #8a6a34;
+    --accent-glow: rgba(196, 151, 74, 0.08);
+    --red: #c45a4a;
+    --green: #4a9a6a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 12, 16, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links { display: flex; gap: 2rem; }
+
+  .nav-links a {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  .hero h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    max-width: 800px;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 560px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .hero-line {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    margin-top: 3rem;
+  }
+
+  /* SECTION */
+  section {
+    padding: 6rem 3rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--accent-dim);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .section-desc {
+    color: var(--text-secondary);
+    max-width: 640px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  /* PROGRAM CARDS */
+  .programs-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .program-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 3rem;
+    transition: background 0.4s, border-color 0.4s;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .program-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-accent);
+  }
+
+  .program-header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .program-name {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .program-class {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+  }
+
+  .program-desc {
+    color: var(--text-secondary);
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+  }
+
+  .program-image {
+    width: 100%;
+    aspect-ratio: 16/10;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .program-image svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* SPEC TABLE */
+  .specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--border);
+    margin-top: 1rem;
+  }
+
+  .spec {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .spec:nth-child(odd) { padding-right: 1.5rem; }
+  .spec:nth-child(even) { padding-left: 1.5rem; border-left: 1px solid var(--border); }
+
+  .spec-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+  }
+
+  .spec-value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  /* VARIANT BADGES */
+  .variants {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .variant-badge {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--border-accent);
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .variant-badge.primary {
+    border-color: var(--accent-dim);
+    color: var(--accent);
+  }
+
+  /* STATUS INDICATOR */
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .status-text {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-info p {
+    color: var(--text-secondary);
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .contact-detail {
+    padding: 1rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-detail-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+  }
+
+  .contact-detail-value {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+  }
+
+  .contact-detail-value a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+
+  .contact-detail-value a:hover { opacity: 0.7; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+  .form-group label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.85rem 1rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.3s;
+    font-weight: 300;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent-dim);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 120px; }
+
+  .form-submit {
+    align-self: flex-start;
+    background: transparent;
+    border: 1px solid var(--accent-dim);
+    color: var(--accent);
+    padding: 0.75rem 2.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    font-weight: 500;
+  }
+
+  .form-submit:hover {
+    background: var(--accent);
+    color: var(--bg-primary);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2.5rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-text {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-legal {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.25rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    section { padding: 4rem 1.5rem; }
+    .program-card { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; gap: 0.5rem; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-links a { font-size: 0.65rem; }
+    .nav-links { gap: 1rem; }
+    .specs { grid-template-columns: 1fr; }
+    .spec:nth-child(even) { padding-left: 0; border-left: none; }
+    .spec:nth-child(odd) { padding-right: 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Atkinson <span>Logistics</span></div>
+  <div class="nav-links">
+    <a href="#programs">Programs</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">Fort Thomas, Kentucky &mdash; Aerospace R&D</div>
+  <h1>Advanced propulsion and autonomous systems for defense and commercial applications</h1>
+  <p class="hero-sub">Atkinson Logistics develops affordable, producible weapon systems and autonomous platforms using additive manufacturing, commercial electronics, and novel propulsion architectures.</p>
+  <div class="hero-line"></div>
+</div>
+
+<section id="programs">
+  <div class="section-tag">Active Programs</div>
+  <h2 class="section-title">In Development</h2>
+  <p class="section-desc">Three programs spanning air-breathing propulsion, autonomous maritime systems, and low-cost defense platforms. All designed around commodity materials and manufacturing simplicity.</p>
+
+  <div class="programs-grid">
+
+    <!-- BERSERKER -->
+    <div class="program-card">
+      <div class="program-header">
+        <h3 class="program-name">Berserker</h3>
+        <div class="program-class">Solid Fuel Ramjet &mdash; Modular Munition</div>
+        <p class="program-desc">A Mach 2+ solid fuel ramjet missile with an integrated booster/sustainer in a single tube&mdash;no staging event, no separation mechanism. 3D-printed airframe, commercial-grade guidance electronics, and a modular nose section supporting multiple mission configurations from one production line.</p>
+
+        <div class="specs">
+          <div class="spec">
+            <div class="spec-label">Speed</div>
+            <div class="spec-value">Mach 2+</div>
+          </div>
+          <div class="spec">
+            <div class="spec-label">Warhead</div>
+            <div class="spec-value">35 kg</div>
+          </div>
+          <div class="spec">
+            <div class="spec-label">Diameter</div>
+            <div class="spec-value">10&ndash;12 in</div>
+          </div>
+          <div class="spec">
+            <div class="spec-label">Unit Cost Range</div>
+            <div class="spec-value">$5,000&ndash;$25,000</div>
+          </div>
+          <div class="spec">
+            <div class="spec-label">Airframe</div>
+            <div class="spec-value">Special 3D Print</div>
+          </div>
+          <div class="spec">
+            <div class="spec-label">Propulsion</div>
+            <div class="spec-value">Integrated SFRJ</div>
+          </div>
+        </div>
+
+        <div class="variants">
+          <span class="variant-badge primary">Standoff Strike</span>
+          <span class="variant-badge primary">Interceptor</span>
+          <span class="variant-badge primary">Anti-Ship</span>
+          <span class="variant-badge">Command Guided</span>
+          <span class="variant-badge">Decoy</span>
+          <span class="variant-badge">CV Terminal</span>
+        </div>
+
+        <div class="status">
+          <div class="status-dot"></div>
+          <span class="status-text">Subscale flight testing &mdash; Patent pending</span>
+        </div>
+      </div>
+
+      <div class="program-image">
+        <svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">
+          <!-- Berserker side-profile silhouette -->
+          <defs>
+            <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0f1118"/>
+              <stop offset="100%" stop-color="#0a0c10"/>
+            </linearGradient>
+            <linearGradient id="missileGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#3a4055"/>
+              <stop offset="40%" stop-color="#4a5068"/>
+              <stop offset="100%" stop-color="#2a3040"/>
+            </linearGradient>
+            <linearGradient id="inletGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#555d74"/>
+              <stop offset="100%" stop-color="#2a3040"/>
+            </linearGradient>
+          </defs>
+          <rect width="640" height="400" fill="url(#bgGrad)"/>
+          <!-- grid lines -->
+          <g stroke="#1a1e2a" stroke-width="0.5">
+            <line x1="0" y1="100" x2="640" y2="100"/>
+            <line x1="0" y1="200" x2="640" y2="200"/>
+            <line x1="0" y1="300" x2="640" y2="300"/>
+            <line x1="160" y1="0" x2="160" y2="400"/>
+            <line x1="320" y1="0" x2="320" y2="400"/>
+            <line x1="480" y1="0" x2="480" y2="400"/>
+          </g>
+          <!-- missile body -->
+          <g transform="translate(80, 180)">
+            <!-- nose cone -->
+            <path d="M0,20 Q30,-2 80,12 L80,28 Q30,42 0,20Z" fill="url(#missileGrad)" stroke="#555d74" stroke-width="0.5"/>
+            <!-- forward section (modular head) -->
+            <rect x="80" y="10" width="100" height="20" fill="#3a4055" stroke="#555d74" stroke-width="0.5"/>
+            <line x1="80" y1="10" x2="80" y2="30" stroke="#c4974a" stroke-width="1" stroke-dasharray="2,2" opacity="0.6"/>
+            <text x="130" y="6" fill="#c4974a" font-size="7" font-family="Outfit" text-anchor="middle" opacity="0.7">MODULAR</text>
+            <!-- main body / combustor -->
+            <rect x="180" y="8" width="240" height="24" fill="url(#missileGrad)" stroke="#555d74" stroke-width="0.5"/>
+            <!-- stepped body inlet indicator -->
+            <rect x="180" y="6" width="10" height="28" fill="url(#inletGrad)" stroke="#555d74" stroke-width="0.5" rx="1"/>
+            <rect x="172" y="10" width="8" height="20" fill="#2a3040" stroke="#555d74" stroke-width="0.5"/>
+            <!-- inner bore line -->
+            <line x1="190" y1="20" x2="420" y2="20" stroke="#555d74" stroke-width="0.5" stroke-dasharray="4,3" opacity="0.4"/>
+            <!-- nozzle -->
+            <path d="M420,8 L440,4 L440,36 L420,32Z" fill="#2a3040" stroke="#555d74" stroke-width="0.5"/>
+            <!-- fins -->
+            <path d="M380,8 L400,-18 L420,8Z" fill="#3a4055" stroke="#555d74" stroke-width="0.5"/>
+            <path d="M380,32 L400,58 L420,32Z" fill="#3a4055" stroke="#555d74" stroke-width="0.5"/>
+            <!-- small horizontal wing stubs -->
+            <rect x="360" y="17" width="40" height="2" fill="#4a5068" rx="1"/>
+            <rect x="360" y="21" width="40" height="2" fill="#4a5068" rx="1"/>
+          </g>
+          <!-- labels -->
+          <text x="320" y="375" fill="#555d74" font-size="8" font-family="Outfit" text-anchor="middle" letter-spacing="3">BERSERKER — SFRJ COMMON BUS</text>
+          <!-- dimension line -->
+          <g stroke="#555d74" stroke-width="0.5" opacity="0.5">
+            <line x1="80" y1="250" x2="520" y2="250"/>
+            <line x1="80" y1="245" x2="80" y2="255"/>
+            <line x1="520" y1="245" x2="520" y2="255"/>
+          </g>
+          <text x="300" y="264" fill="#555d74" font-size="7" font-family="Outfit" text-anchor="middle" opacity="0.5">10–12 IN DIA × CLASSIFIED LENGTH</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- CORVETTE -->
+    <div class="program-card">
+      <div class="program-header">
+        <h3 class="program-name">Corvette</h3>
+        <div class="program-class">Liquid Fueled Interceptor &mdash; Oblique Wing</div>
+        <p class="program-desc">A 12-inch liquid-fueled interceptor with a hybrid air-breathing jet propulsion cycle and oblique wing for high-G terminal maneuvering. Designed as a reusable-architecture gun platform for air defense and counter-UAS missions.</p>
+
+        <div class="specs">
+          <div class="spec">
+            <div class="spec-label">Propulsion</div>
+            <div class="spec-value">Hybrid Air Breathing Jet</div>
+          </div>
+          <div class="spec">
+            <div class="spec-label">Diameter</div>
+            <div class="spec-value">12 in</div>
+          </div>
+          <div class="spec">
+            <div class="spec-label">Wing Config</div>
+            <div class="spec-value">Oblique Variable Sweep</div>
+          </div>
+          <div class="spec">
+            <div class="spec-label">Role</div>
+            <div class="spec-value">Interceptor / Gun Platform</div>
+          </div>
+        </div>
+
+        <div class="status">
+          <div class="status-dot"></div>
+          <span class="status-text">Early design phase</span>
+        </div>
+      </div>
+
+      <div class="program-image">
+        <svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bgGrad2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0f1118"/>
+              <stop offset="100%" stop-color="#0a0c10"/>
+            </linearGradient>
+          </defs>
+          <rect width="640" height="400" fill="url(#bgGrad2)"/>
+          <g stroke="#1a1e2a" stroke-width="0.5">
+            <line x1="0" y1="100" x2="640" y2="100"/>
+            <line x1="0" y1="200" x2="640" y2="200"/>
+            <line x1="0" y1="300" x2="640" y2="300"/>
+            <line x1="160" y1="0" x2="160" y2="400"/>
+            <line x1="320" y1="0" x2="320" y2="400"/>
+            <line x1="480" y1="0" x2="480" y2="400"/>
+          </g>
+          <!-- Corvette body -->
+          <g transform="translate(100, 185)">
+            <!-- nose -->
+            <path d="M0,15 Q40,-4 90,8 L90,22 Q40,34 0,15Z" fill="#3a4055" stroke="#555d74" stroke-width="0.5"/>
+            <!-- fuselage -->
+            <rect x="90" y="6" width="280" height="18" fill="#3a4055" stroke="#555d74" stroke-width="0.5"/>
+            <!-- oblique wing - single continuous diamond planform rotated ~30deg -->
+            <polygon points="120,52 200,15 340,-32 260,5" fill="#3a4055" stroke="#555d74" stroke-width="0.5" opacity="0.8"/>
+            <!-- wing leading edge highlight -->
+            <line x1="120" y1="52" x2="340" y2="-32" stroke="#555d74" stroke-width="0.8" opacity="0.5"/>
+            <!-- wing sweep arc indicator -->
+            <path d="M210,15 Q250,-10 280,-25" fill="none" stroke="#c4974a" stroke-width="0.5" stroke-dasharray="2,2" opacity="0.5"/>
+            <text x="290" y="-28" fill="#c4974a" font-size="6" font-family="Outfit" opacity="0.6">SWEEP</text>
+            <!-- nozzle -->
+            <path d="M370,6 L390,2 L390,28 L370,24Z" fill="#2a3040" stroke="#555d74" stroke-width="0.5"/>
+            <!-- tail fins -->
+            <path d="M340,6 L355,-14 L370,6Z" fill="#3a4055" stroke="#555d74" stroke-width="0.5"/>
+            <path d="M340,24 L355,44 L370,24Z" fill="#3a4055" stroke="#555d74" stroke-width="0.5"/>
+            <!-- valve indicators -->
+            <g opacity="0.4">
+              <circle cx="150" cy="15" r="3" fill="none" stroke="#c4974a" stroke-width="0.5"/>
+              <circle cx="220" cy="15" r="3" fill="none" stroke="#c4974a" stroke-width="0.5"/>
+              <circle cx="290" cy="15" r="3" fill="none" stroke="#c4974a" stroke-width="0.5"/>
+            </g>
+          </g>
+          <text x="320" y="375" fill="#555d74" font-size="8" font-family="Outfit" text-anchor="middle" letter-spacing="3">CORVETTE — OBLIQUE WING INTERCEPTOR</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- AUTONOMOUS SAILING VESSEL -->
+    <div class="program-card">
+      <div class="program-header">
+        <h3 class="program-name">Project Spook</h3>
+        <div class="program-class">Autonomous Sailing Vessel &mdash; Hybrid Wing Sail</div>
+        <p class="program-desc">An unmanned sailing vessel with a patent-pending hybrid sail system for zero-fuel autonomous operation. Commercial applications include transoceanic and Arctic cargo delivery on routes where conventional shipping is uneconomical. Military applications include persistent maritime ISR, communications relay, electronic warfare, and long-duration loitering with mission-configurable payloads.</p>
+
+        <div class="specs">
+          <div class="spec">
+            <div class="spec-label">Sail System</div>
+            <div class="spec-value">Patent Pending Hybrid</div>
+          </div>
+          <div class="spec">
+            <div class="spec-label">Operation</div>
+            <div class="spec-value">Fully Autonomous</div>
+          </div>
+          <div class="spec">
+            <div class="spec-label">Development Stage</div>
+            <div class="spec-value">Scale Demonstrator Design</div>
+          </div>
+          <div class="spec">
+            <div class="spec-label">Applications</div>
+            <div class="spec-value">Cargo / ISR / Loiter / Relay</div>
+          </div>
+        </div>
+
+        <div class="status">
+          <div class="status-dot"></div>
+          <span class="status-text">Prototype design phase</span>
+        </div>
+      </div>
+
+      <div class="program-image">
+        <svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bgGrad3" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0f1118"/>
+              <stop offset="60%" stop-color="#0c1020"/>
+              <stop offset="100%" stop-color="#0a0c10"/>
+            </linearGradient>
+            <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1a2540" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#0a0c10" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <rect width="640" height="400" fill="url(#bgGrad3)"/>
+          <!-- water line -->
+          <rect x="0" y="260" width="640" height="140" fill="url(#waterGrad)"/>
+          <path d="M0,265 Q80,255 160,268 Q240,278 320,262 Q400,250 480,265 Q560,275 640,260" fill="none" stroke="#1a2540" stroke-width="0.75"/>
+          <path d="M0,275 Q100,268 200,278 Q300,285 400,272 Q500,262 600,275 L640,273" fill="none" stroke="#1a2540" stroke-width="0.5"/>
+          <!-- hull -->
+          <g transform="translate(180, 240)">
+            <path d="M0,20 Q10,30 60,32 L240,32 Q280,30 290,20 L270,20 Q260,26 220,28 L60,28 Q20,26 10,20Z" fill="#2a3040" stroke="#3a4055" stroke-width="0.5"/>
+            <!-- deck -->
+            <line x1="30" y1="20" x2="270" y2="20" stroke="#3a4055" stroke-width="1"/>
+            <!-- mast -->
+            <line x1="130" y1="20" x2="130" y2="-120" stroke="#4a5068" stroke-width="1.5"/>
+            <!-- rigid wing sail -->
+            <path d="M132,-115 Q170,-80 165,-20 L132,-20Z" fill="#3a4055" stroke="#555d74" stroke-width="0.5" opacity="0.8"/>
+            <!-- soft sail extension -->
+            <path d="M132,-110 Q90,-70 95,-20 L132,-20Z" fill="none" stroke="#4a5068" stroke-width="0.5" stroke-dasharray="3,2"/>
+            <!-- second mast -->
+            <line x1="220" y1="20" x2="220" y2="-80" stroke="#4a5068" stroke-width="1"/>
+            <!-- second sail -->
+            <path d="M222,-75 Q248,-50 245,-20 L222,-20Z" fill="#3a4055" stroke="#555d74" stroke-width="0.5" opacity="0.6"/>
+            <!-- sensor dome -->
+            <ellipse cx="60" cy="17" rx="8" ry="5" fill="#2a3040" stroke="#555d74" stroke-width="0.5"/>
+            <!-- autonomous indicator -->
+            <circle cx="60" cy="17" r="2" fill="#c4974a" opacity="0.6"/>
+          </g>
+          <text x="320" y="375" fill="#555d74" font-size="8" font-family="Outfit" text-anchor="middle" letter-spacing="3">PROJECT SPOOK — AUTONOMOUS SAIL VESSEL</text>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="section-tag">Get in Touch</div>
+      <h2 class="section-title">Contact</h2>
+      <p>Atkinson Logistics is actively seeking defense and commercial partners for its propulsion and autonomous systems programs. We welcome inquiries from program offices, prime contractors, and investors.</p>
+
+      <div class="contact-detail">
+        <div class="contact-detail-label">Entity</div>
+        <div class="contact-detail-value">Atkinson Logistics LLC</div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-label">Location</div>
+        <div class="contact-detail-value">Fort Thomas, Kentucky</div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-label">Email</div>
+        <div class="contact-detail-value"><a href="/cdn-cgi/l/email-protection#93f1fff2f8f6d3f2e7f8fafde0fcfdfffcf4fae0e7faf0e0bdf0fcfe"><span class="__cf_email__" data-cfemail="d5b7b9b4beb095b4a1bebcbba6babbb9bab2bca6a1bcb6a6fbb6bab8">[email&#160;protected]</span></a></div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-label">Registrations</div>
+        <div class="contact-detail-value">SAM.gov Registered &bull; CAGE Code Pending</div>
+      </div>
+    </div>
+
+    <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="org">Organization</label>
+        <input type="text" id="org" name="organization">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-text">&copy; 2026 Atkinson Logistics LLC. All rights reserved.</div> 
+</footer> 
