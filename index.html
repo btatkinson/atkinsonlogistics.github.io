@@ -162,6 +162,54 @@
     line-height: 1.2;
   }
 
+  /* APPROACH SECTION */
+.approach-content {
+  max-width: 720px;
+}
+
+.approach-content p {
+  color: var(--text-secondary);
+  font-weight: 300;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+}
+
+.approach-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+  margin-top: 2.5rem;
+}
+
+.approach-metric {
+  padding: 2rem;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+
+.approach-metric:last-child { border-right: none; }
+
+.approach-metric-value {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.approach-metric-value span {
+  color: var(--accent);
+}
+
+.approach-metric-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
   .section-desc {
     color: var(--text-secondary);
     max-width: 640px;
