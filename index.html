@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atkinson Logistics LLC</title>
-<meta name="description" content="Atkinson Logistics LLC — Advanced defense and autonomous systems. Fort Thomas, Kentucky.">
+<title>Atkinson Logistics LLC | Advanced Defense Systems</title>
+<meta name="description" content="Atkinson Logistics LLC — Advanced defense, high-kinematic effectors, and autonomous systems. Fort Thomas, Kentucky.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -98,7 +98,7 @@
   }
 
   .container {
-    max-width: 720px;
+    max-width: 800px;
     position: relative;
     z-index: 1;
   }
@@ -127,6 +127,7 @@
     line-height: 1.75;
     font-weight: 300;
     margin-bottom: 1.25rem;
+    max-width: 720px;
   }
 
   .divider {
@@ -136,9 +137,44 @@
     margin: 2.5rem 0;
   }
 
+  /* CAPABILITIES GRID */
+  .cap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .cap-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    transition: border-color 0.3s;
+  }
+
+  .cap-card:hover {
+    border-color: var(--accent-dim);
+  }
+
+  .cap-title {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  .cap-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* INFO GRID */
   .info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 2rem;
     margin-bottom: 2.5rem;
   }
@@ -235,36 +271,50 @@
 <main>
   <div class="container">
     <div class="tag">Atkinson Logistics LLC</div>
-    <h1>Advanced defense and autonomous systems.</h1>
-    <p class="lede">Atkinson Logistics is a Kentucky-based defense technology company developing a new class of cost-disruptive aerial and autonomous platforms. We are a registered U.S. federal contractor and a client of the Kentucky APEX Accelerator.</p>
-    <p class="lede">Detailed program information is provided to qualified U.S. parties under appropriate non-disclosure and export-control arrangements.</p>
-
+    <h1>Asymmetric economics for the modern battlespace.</h1>
+    <p class="lede">Atkinson Logistics is a defense technology manufacturer developing a new class of cost-disruptive kinetic effectors. By bridging advanced additive manufacturing with proven thermodynamic architectures, we deliver highly scalable platforms designed to restore magazine depth.</p>
+    
     <div class="divider"></div>
 
-    <div class="info-grid">
-      <div class="info-item">
-        <div class="info-label">Entity</div>
-        <div class="info-value">Atkinson Logistics LLC</div>
+    <div class="cap-grid">
+      <div class="cap-card">
+        <div class="cap-title">High-Kinematic Platforms</div>
+        <div class="cap-desc">Developing highly simplified, zero-moving-part boost architectures engineered for rapid scaling and low-cost area defense.</div>
       </div>
-      <div class="info-item">
-        <div class="info-label">Location</div>
-        <div class="info-value">Fort Thomas, Kentucky</div>
+      <div class="cap-card">
+        <div class="cap-title">Hybrid Manufacturing</div>
+        <div class="cap-desc">Utilizing advanced carbon-fiber polymers and heavy-gauge metallurgy to completely bypass traditional aerospace supply chain bottlenecks.</div>
       </div>
-      <div class="info-item">
-        <div class="info-label">Registrations</div>
-        <div class="info-value">SAM.gov active</div>
+      <div class="cap-card">
+        <div class="cap-title">Networked Integration</div>
+        <div class="cap-desc">Implementing lightweight machine learning pipelines to facilitate off-board C2 datalink guidance in electromagnetically contested environments.</div>
       </div>
     </div>
 
-    <a href="mailto:blake@atkinsonlogistics.com?subject=Atkinson%20Logistics%20Inquiry" class="cta">Contact</a>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-label">CAGE Code</div>
+        <div class="info-value">1EVH0</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">UEI</div>
+        <div class="info-value">CXR2LW78CPY6</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Clearance</div>
+        <div class="info-value">U.S. Persons Only</div>
+      </div>
+    </div>
 
-    <p class="disclosure-note">Atkinson Logistics LLC welcomes inquiries from U.S. government program offices, U.S. prime contractors, and qualified domestic investors. All technical discussions are conducted under appropriate non-disclosure and U.S. export-control arrangements.</p>
+    <a href="mailto:blake@atkinsonlogistics.com?subject=Atkinson%20Logistics%20Inquiry" class="cta">Request Briefing</a>
+
+    <p class="disclosure-note">Detailed capability statements and technical schematics are provided exclusively to U.S. government program offices, prime contractors, and qualified domestic partners under appropriate non-disclosure and U.S. export-control (ITAR) arrangements.</p>
   </div>
 </main>
 
 <footer>
   <div class="footer-text">&copy; 2026 Atkinson Logistics LLC. All rights reserved.</div>
-  <div class="footer-legal">U.S. Persons Only</div>
+  <div class="footer-legal">SAM.gov Registered Entity</div>
 </footer>
 
 </body>
